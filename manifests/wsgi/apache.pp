@@ -81,7 +81,7 @@ class horizon::wsgi::apache (
 # - ${priority}-${vhost_conf_name}.conf
 # - ${priority}-${vhost_ssl_conf_name}.conf
 #",
-    require => Package[$::horizon::params::package_name]
+    require => Package['horizon'],
   }
 
 
@@ -112,7 +112,7 @@ class horizon::wsgi::apache (
     $redirect_url   = $::horizon::params::root_url
   }
 
-  Package['horizon'] -> Package[$::horizon::params::http_service]
+  Package['horizon'] -> Package['httpd']
   File[$::horizon::params::config_file] ~> Service[$::horizon::params::http_service]
 
   $unix_user = $::osfamily ? {
