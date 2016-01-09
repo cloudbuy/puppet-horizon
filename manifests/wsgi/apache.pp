@@ -147,7 +147,7 @@ class horizon::wsgi::apache (
     fail("Invalid redirect type '${redirect_type} provided.")
   }
 
-  Package['horizon'] -> Package[$::horizon::params::http_service]
+  Package['horizon'] -> Package['httpd']
   File[$::horizon::params::config_file] ~> Service[$::horizon::params::http_service]
 
   $unix_user = $::osfamily ? {
